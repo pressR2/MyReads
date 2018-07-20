@@ -67,30 +67,25 @@ class BooksApp extends React.Component {
     }
 
     
-  } 
+  }
+
+  filterBooks (shelfTitle) {
+      return this.state.Books
+              .filter(book => book.shelf === shelfTitle)
+              .map(book => (
+                <Book title = {book.title} author = {book.author} coverUrl = {book.coverUrl} />
+              ));
+
+    }
 
   render() {
-    var reading = this.state.Books
-              .filter(book => book.shelf === "Currently Reading")
-              .map(book => (
-                <Book title = {book.title} author = {book.author} coverUrl = {book.coverUrl} />
+    
 
-              ));
+    var reading = this.filterBooks("Currently Reading");
 
-    var wantToRead = this.state.Books
-              .filter(book => book.shelf === "Want to Read")
-              .map(book => (
-                <Book title = {book.title} author = {book.author} coverUrl = {book.coverUrl} />
+    var wantToRead = this.filterBooks("Want to Read");
 
-              ));
-
-    var read = this.state.Books
-              .filter(book => book.shelf === "Read")
-              .map(book => (
-                <Book title = {book.title} author = {book.author} coverUrl = {book.coverUrl} />
-
-              ))
-
+    var read = this.filterBooks("Read");
 
     return (
       <div className="app">
@@ -107,7 +102,7 @@ class BooksApp extends React.Component {
                 <Shelf shelfTitle = "Currently Reading" bookList = {reading} />
                 <Shelf shelfTitle = "Want to Read" bookList = {wantToRead} />
                 <Shelf shelfTitle = "Read" bookList = {read} />
-                
+
               </div>
             </div>
             <div className="open-search">
