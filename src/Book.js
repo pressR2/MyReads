@@ -16,7 +16,6 @@ class Book extends React.Component {
           </li>
         )
     }
-
 }
 
 export default Book
