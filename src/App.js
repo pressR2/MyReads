@@ -8,6 +8,14 @@ import Shelf from './Shelf'
 
 
 class BooksApp extends React.Component {
+
+    constructor (props){
+        super(props);
+
+        this.load = this.load.bind(this);
+
+    }
+
   state = {
     Books : [],
     
@@ -28,9 +36,6 @@ class BooksApp extends React.Component {
   }
 
   filterBooks (shelfTitle) {
-    this.state.Books.map(book => {
-       console.log(book);
-      });
       
       return this.state.Books
               .filter(book => book.shelf === shelfTitle)
@@ -40,15 +45,20 @@ class BooksApp extends React.Component {
                   coverUrl = 'url(' + book.imageLinks.smallThumbnail + ')' 
                 }
 
-                return (<Book title = {book.title} author = {book.authors[0]} coverUrl = {coverUrl} key = {book.id} />)
+                return (<Book title = {book.title} author = {book.authors[0]} coverUrl = {coverUrl} key = {book.id} bookID = {book.id} load = {this.load} />)
               });
 
   }
 
-  componentDidMount() {
-    BooksAPI.getAll().then((data) => {
+  load() {
+     BooksAPI.getAll().then((data) => {
+      console.log("api response");
       this.setState({Books: data})
-    })
+    }).catch(err => console.log(err))
+  }
+
+  componentDidMount() {
+    this.load();
   }
 
   render() {
@@ -59,7 +69,6 @@ class BooksApp extends React.Component {
     var wantToRead = this.filterBooks("wantToRead");
 
     var read = this.filterBooks("read");
-
 
     return (
       <div className="app">
@@ -76,7 +85,6 @@ class BooksApp extends React.Component {
                 <Shelf shelfTitle = "Currently Reading" bookList = {reading} />
                 <Shelf shelfTitle = "Want to Read" bookList = {wantToRead} />
                 <Shelf shelfTitle = "Read" bookList = {read} />
-
               </div>
             </div>
             <div className="open-search">
