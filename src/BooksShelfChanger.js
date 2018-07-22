@@ -17,8 +17,8 @@ class BooksShelfChanger extends React.Component {
     render () {
         return (
         <div className="book-shelf-changer">
-          <select onChange={this.changeShelf}>
-            <option value="move" disabled selected>Move to...</option>
+          <select onChange={this.changeShelf} defaultValue={this.props.currentShelf}>
+            <option value="move" disabled >Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>
             <option value="read">Read</option>

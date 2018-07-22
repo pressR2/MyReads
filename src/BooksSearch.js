@@ -21,9 +21,26 @@ class BooksSearch extends React.Component {
 
 
     search(event) {
-        console.log(event.target.value)
+        if (event.target.value === undefined || event.target.value === '') {
+            this.setState({BookList: []})
+            return
+        }
+
         BooksAPI.search(event.target.value).then((data) => {
-            console.log(data)
+            if (data === undefined || !Array.isArray(data)) {
+                data = []
+            }
+            
+            //books from search don't have shelf set, we have to check if we have them on our shelves
+            data.map((book) => {
+                let myBook = this.props.myBooks.filter(myBook => myBook.id === book.id)
+                if (myBook.length > 0) {
+                    book.shelf = myBook[0].shelf
+                } else {
+                    book.shelf = "none"
+                }
+            })
+
             this.setState({BookList: data})
         })
     }
@@ -32,12 +49,7 @@ class BooksSearch extends React.Component {
       
       return this.state.BookList
               .map(book => {
-                let coverUrl = "";
-                if (book.imageLinks !== undefined) {
-                  coverUrl = 'url(' + book.imageLinks.smallThumbnail + ')' 
-                }
-
-                return (<Book title = {book.title} author = {book.authors !== undefined ? book.authors[0]: ''} coverUrl = {coverUrl} key = {book.id} bookID = {book.id} load = {() => {}} />)
+                return (<Book book = {book} key = {book.id} load = {() => {}} />)
               });
 
     }

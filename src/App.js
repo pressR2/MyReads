@@ -41,19 +41,14 @@ class BooksApp extends React.Component {
       return this.state.Books
               .filter(book => book.shelf === shelfTitle)
               .map(book => {
-                let coverUrl = "";
-                if (book.imageLinks !== undefined) {
-                  coverUrl = 'url(' + book.imageLinks.smallThumbnail + ')' 
-                }
-
-                return (<Book title = {book.title} author = {book.authors[0]} coverUrl = {coverUrl} key = {book.id} bookID = {book.id} load = {this.load} />)
+                  return (<Book book={book} key = {book.id} load = {this.load} />)
               });
 
   }
 
   load() {
      BooksAPI.getAll().then((data) => {
-      console.log("api response");
+      console.log(data);
       this.setState({Books: data})
     }).catch(err => console.log(err))
   }
@@ -74,7 +69,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <BooksSearch closeSearchCallback = {this.state.closeSearchPage}/>
+          <BooksSearch closeSearchCallback = {this.state.closeSearchPage} myBooks = {this.state.Books}/>
         ) : (
           <div className="list-books">
             <div className="list-books-title">
