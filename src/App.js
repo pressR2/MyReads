@@ -30,6 +30,7 @@ class BooksApp extends React.Component {
     showSearchPage: false,
     closeSearchPage: () => {
       this.setState({showSearchPage: false})
+      this.load()
     }
 
     
