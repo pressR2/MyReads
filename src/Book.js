@@ -6,13 +6,14 @@ class Book extends React.Component {
     constructor(props) {
         super(props);
 
-        this.changeShelf = this.changeShelf.bind(this);
+        this.changeShelf = this.changeShelf.bind(this)
     }
 
     changeShelf(shelf) {
-        BooksAPI.update(this.props.book.id, shelf);
-        this.props.load();
+        BooksAPI.update(this.props.book.id, shelf)
+        this.props.load()
     }
+
     render() {
         let coverUrl = "";
         if (this.props.book.imageLinks !== undefined) {

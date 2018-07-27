@@ -5,34 +5,22 @@ import BooksSearch from './BooksSearch'
 import BooksShelfChanger from './BooksShelfChanger'
 import Book from './Book'
 import Shelf from './Shelf'
+import { Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 
 class BooksApp extends React.Component {
 
     constructor (props){
-        super(props);
+        super(props)
 
-        this.load = this.load.bind(this);
+        this.load = this.load.bind(this)
 
     }
 
   state = {
-    Books : [],
-    
-    
-    
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false,
-    closeSearchPage: () => {
-      this.setState({showSearchPage: false})
-      this.load()
-    }
 
+    Books : []
     
   }
 
@@ -60,17 +48,19 @@ class BooksApp extends React.Component {
   render() {
     
 
-    var reading = this.filterBooks("currentlyReading");
+    var reading = this.filterBooks("currentlyReading")
 
-    var wantToRead = this.filterBooks("wantToRead");
+    var wantToRead = this.filterBooks("wantToRead")
 
-    var read = this.filterBooks("read");
+    var read = this.filterBooks("read")
 
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-          <BooksSearch closeSearchCallback = {this.state.closeSearchPage} myBooks = {this.state.Books}/>
-        ) : (
+        <Route path="/search" render={() =>(
+          <BooksSearch myBooks = {this.state.Books}/>
+          )}
+        />
+        <Route exact path="/" render={() => (
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
@@ -84,10 +74,11 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link to ="/search">Add a book</Link>
             </div>
           </div>
-        )}
+          )}/> 
+          
       </div>
     )
   }
