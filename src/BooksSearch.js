@@ -17,7 +17,7 @@ class BooksSearch extends React.Component {
     };
 
     search(event) {
-        console.log(event.target.value);
+        
         if (event.target.value === undefined || event.target.value === "") {
             this.setState({ BookList: [] });
             return;
