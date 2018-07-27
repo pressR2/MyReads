@@ -3,6 +3,7 @@ import Shelf from "./Shelf";
 import Book from "./Book";
 import * as BooksAPI from "./BooksAPI";
 import { Link } from "react-router-dom";
+import * as SearchTerm from "./SearchTerm";
 
 class BooksSearch extends React.Component {
     constructor(props) {
@@ -16,7 +17,14 @@ class BooksSearch extends React.Component {
     };
 
     search(event) {
+        console.log(event.target.value);
         if (event.target.value === undefined || event.target.value === "") {
+            this.setState({ BookList: [] });
+            return;
+        }
+
+        var terms = SearchTerm.termsArray.filter(term => event.target.value.toUpperCase() === term.toUpperCase());
+        if (terms.length === 0) {
             this.setState({ BookList: [] });
             return;
         }
