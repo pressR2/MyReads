@@ -1,33 +1,31 @@
-import React from 'react'
-// import Book from './Book'
+import React from "react";
 
 class BooksShelfChanger extends React.Component {
-    constructor (props){
+    constructor(props) {
         super(props);
 
         this.changeShelf = this.changeShelf.bind(this);
-
     }
-
 
     changeShelf(event) {
         this.props.changeShelfCallback(event.target.value);
     }
 
-    render () {
+    render() {
         return (
-        <div className="book-shelf-changer">
-          <select onChange={this.changeShelf} defaultValue={this.props.currentShelf}>
-            <option value="move" disabled >Move to...</option>
-            <option value="currentlyReading">Currently Reading</option>
-            <option value="wantToRead">Want to Read</option>
-            <option value="read">Read</option>
-            <option value="none">None</option>
-          </select>
-        </div>
-        )
+            <div className="book-shelf-changer">
+                <select onChange={this.changeShelf} defaultValue={this.props.currentShelf}>
+                    <option value="move" disabled>
+                        Move to...
+                    </option>
+                    <option value="currentlyReading">Currently Reading</option>
+                    <option value="wantToRead">Want to Read</option>
+                    <option value="read">Read</option>
+                    <option value="none">None</option>
+                </select>
+            </div>
+        );
     }
-
 }
 
-export default BooksShelfChanger
+export default BooksShelfChanger;
