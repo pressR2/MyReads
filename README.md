@@ -8,5 +8,7 @@ All search terms which can by used, are specified in [Search Terms file](https:/
 * To get started clone [repository](https://github.com/pressR2/MyReads.git)
 * Install all project dependencies with `npm install`
 * Start the development server with `npm start`
+## Source
+Initial code by Udacity [link](https://github.com/udacity/reactnd-project-myreads-starter).
 ### Requirements
 [Node.js](https://nodejs.org)
